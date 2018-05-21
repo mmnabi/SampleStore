@@ -26,7 +26,7 @@ namespace UOW.WebAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetProducts()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, _productService.ProductoDtos.ToList());
+            return Request.CreateResponse(HttpStatusCode.OK, _productService.Products.ToList());
         }
 
         [ResponseType(typeof(ProductsListViewModel))]
@@ -41,7 +41,7 @@ namespace UOW.WebAPI.Controllers
         // GET: api/Products/5
         public HttpResponseMessage GetProduct(int id)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, _productService.ProductoDtos.FirstOrDefault(p => p.Id == id));
+            return Request.CreateResponse(HttpStatusCode.OK, _productService.Products.FirstOrDefault(p => p.Id == id));
         }
 
         [ResponseType(typeof(ProductDTO))]

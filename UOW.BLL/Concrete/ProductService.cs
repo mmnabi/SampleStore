@@ -19,7 +19,7 @@ namespace UOW.BLL.Concrete
             _unitOfWork = new UnitOfWork(new SampleDBEntities());
         }
 
-        public IEnumerable<ProductDTO> ProductoDtos
+        public IEnumerable<ProductDTO> Products
         {
             get
             {

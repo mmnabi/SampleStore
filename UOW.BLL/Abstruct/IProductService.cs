@@ -7,7 +7,7 @@ namespace UOW.BLL.Abstruct
 {
     public interface IProductService
     {
-        IEnumerable<ProductDTO> ProductoDtos { get; }
+        IEnumerable<ProductDTO> Products { get; }
         ProductsListViewModel GetProductsWithSupplier(int pageIndex, int pageSize);
         Task<int> SaveProduct(ProductDTO product);
         Task<ProductDTO> DeleteProduct(int productId);

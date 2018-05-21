@@ -30,6 +30,7 @@ namespace UOW.WebAPI.Infrastructure
         private void AddBindings()
         {
             _kernel.Bind<IProductService>().To<ProductService>();
+            _kernel.Bind<ISupplierService>().To<SupplierService>();
         }
     }
 }

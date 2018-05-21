@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using UOW.DAL.Abstruct;
 using UOW.DAL.Database;
 
@@ -12,9 +13,11 @@ namespace UOW.DAL.Concrete
         {
             _context = context;
             Products = new ProductRepository(_context);
+            Suppliers = new SupplierRepository(_context);
         }
 
         public IProductRepository Products { get; }
+        public ISupplierRepository Suppliers { get; }
 
         public int Complete()
         {

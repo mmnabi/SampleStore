@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstruct\IProductService.cs" />
+    <Compile Include="Abstruct\ISupplierService.cs" />
     <Compile Include="Concrete\ProductService.cs" />
+    <Compile Include="Concrete\SupplierService.cs" />
     <Compile Include="DTOs\CustomerDTO.cs" />
     <Compile Include="DTOs\OrderDTO.cs" />
     <Compile Include="DTOs\OrderItemDTO.cs" />

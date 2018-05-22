@@ -55,7 +55,7 @@ namespace UOW.WebAPI.Controllers
 
             try
             {
-                if (product.Id != 0) product.Id = 0;
+                if (product.Id != 0) return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad Request");
                 int newId = await _productService.SaveProduct(product);
                 if (newId == -1) { return Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, "Not Saved."); }
                 product.Id = newId;

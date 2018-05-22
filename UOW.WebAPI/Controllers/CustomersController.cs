@@ -10,34 +10,34 @@ using UOW.BLL.DTOs;
 
 namespace UOW.WebAPI.Controllers
 {
-    public class SuppliersController : ApiController
+    public class CustomersController : ApiController
     {
-        // GET: api/Suppliers
-        private readonly ISupplierService _supplierService;
+        // GET: api/Customers
+        private readonly ICustomerService _customerService;
 
         public int PageSize = 5;
 
-        public SuppliersController(ISupplierService repo)
+        public CustomersController(ICustomerService repo)
         {
-            _supplierService = repo;
+            _customerService = repo;
         }
 
         [HttpGet]
-        public HttpResponseMessage GetSuppliers()
+        public HttpResponseMessage GetCustomers()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, _supplierService.Suppliers.ToList());
+            return Request.CreateResponse(HttpStatusCode.OK, _customerService.Customers.ToList());
         }
 
-        [ResponseType(typeof(SupplierDTO))]
-        // GET: api/Suppliers/5
-        public HttpResponseMessage GetSupplier(int id)
+        [ResponseType(typeof(CustomerDTO))]
+        // GET: api/Customers/5
+        public HttpResponseMessage GetCustomer(int id)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, _supplierService.Suppliers.FirstOrDefault(p => p.Id == id));
+            return Request.CreateResponse(HttpStatusCode.OK, _customerService.Customers.FirstOrDefault(p => p.Id == id));
         }
 
-        [ResponseType(typeof(SupplierDTO))]
-        // POST: api/Suppliers
-        public async Task<HttpResponseMessage> PostSupplier(SupplierDTO supplier)
+        [ResponseType(typeof(CustomerDTO))]
+        // POST: api/Customers
+        public async Task<HttpResponseMessage> PostCustomer(CustomerDTO customer)
         {
             if (!ModelState.IsValid)
             {
@@ -46,12 +46,12 @@ namespace UOW.WebAPI.Controllers
 
             try
             {
-                if (supplier.Id != 0) return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad Request");
-                int newId = await _supplierService.SaveSupplier(supplier);
+                if (customer.Id != 0) return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad Request");
+                int newId = await _customerService.SaveCustomer(customer);
                 if (newId == -1) { return Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, "Not Saved."); }
-                supplier.Id = newId;
-                var message = Request.CreateResponse(HttpStatusCode.Created, supplier);
-                message.Headers.Location = new Uri(Request.RequestUri + supplier.Id.ToString());
+                customer.Id = newId;
+                var message = Request.CreateResponse(HttpStatusCode.Created, customer);
+                message.Headers.Location = new Uri(Request.RequestUri + customer.Id.ToString());
                 return message;
             }
             catch (Exception ex)
@@ -60,29 +60,29 @@ namespace UOW.WebAPI.Controllers
             }
         }
 
-        [ResponseType(typeof(SupplierDTO))]
+        [ResponseType(typeof(CustomerDTO))]
         [HttpPut]
-        // PUT: api/Suppliers/5
-        public async Task<HttpResponseMessage> EditSupplier(int id, SupplierDTO supplier)
+        // PUT: api/Customers/5
+        public async Task<HttpResponseMessage> EditCustomer(int id, CustomerDTO customer)
         {
             if (!ModelState.IsValid)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
-            if (id != supplier.Id)
+            if (id != customer.Id)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad Request");
             }
 
             try
             {
-                int result = await _supplierService.SaveSupplier(supplier);
+                int result = await _customerService.SaveCustomer(customer);
                 if (result == -1) { return Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, "Not Saved."); }
                 if (result == 0)
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Not Found");
                 }
-                return Request.CreateResponse(HttpStatusCode.OK, supplier);
+                return Request.CreateResponse(HttpStatusCode.OK, customer);
             }
             catch (Exception ex)
             {
@@ -90,17 +90,17 @@ namespace UOW.WebAPI.Controllers
             }
         }
 
-        // DELETE: api/Suppliers/5
+        // DELETE: api/Customers/5
         public async Task<HttpResponseMessage> Delete(int id)
         {
             try
             {
-                SupplierDTO supplier = await _supplierService.DeleteSupplier(id);
-                if (supplier == null)
+                CustomerDTO customer = await _customerService.DeleteCustomer(id);
+                if (customer == null)
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Not Found");
                 }
-                return Request.CreateResponse(HttpStatusCode.OK, supplier);
+                return Request.CreateResponse(HttpStatusCode.OK, customer);
             }
             catch (Exception ex)
             {

@@ -78,6 +78,7 @@ namespace UOW.BLL.Concrete
             if (supplier != null)
             {
                 _unitOfWork.Suppliers.Remove(supplier);
+                dto.Id = supplier.Id;
                 dto.CompanyName = supplier.CompanyName;
                 dto.ContactName = supplier.ContactName;
                 dto.ContactTitle = supplier.ContactTitle;

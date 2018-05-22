@@ -7,6 +7,7 @@ namespace UOW.DAL.Abstruct
     {
         IProductRepository Products { get; }
         ISupplierRepository Suppliers { get; }
+        ICustomerRepository Customers { get; }
         int Complete();
         Task<int> CompleteAsync();
     }

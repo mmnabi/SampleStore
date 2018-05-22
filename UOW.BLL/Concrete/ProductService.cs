@@ -95,18 +95,18 @@ namespace UOW.BLL.Concrete
 
         public async Task<ProductDTO> DeleteProduct(int productId)
         {
-            Product dbEntry = _unitOfWork.Products.Get(productId);
+            Product product = _unitOfWork.Products.Get(productId);
             ProductDTO dto = new ProductDTO();
 
-            if (dbEntry != null)
+            if (product != null)
             {
-                _unitOfWork.Products.Remove(dbEntry);
-                dto.Id = dbEntry.Id;
-                dto.IsDiscontinued = dbEntry.IsDiscontinued;
-                dto.ProductName = dbEntry.ProductName;
-                dto.Package = dbEntry.Package;
-                dto.SupplierId = dbEntry.SupplierId;
-                dto.UnitPrice = dbEntry.UnitPrice;
+                _unitOfWork.Products.Remove(product);
+                dto.Id = product.Id;
+                dto.IsDiscontinued = product.IsDiscontinued;
+                dto.ProductName = product.ProductName;
+                dto.Package = product.Package;
+                dto.SupplierId = product.SupplierId;
+                dto.UnitPrice = product.UnitPrice;
             }
 
             await _unitOfWork.CompleteAsync();

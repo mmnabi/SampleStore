@@ -47,6 +47,7 @@ namespace UOW.WebAPI.Controllers
 
             try
             {
+                if (supplier.Id != 0) supplier.Id = 0;
                 int newId = await _supplierService.SaveSupplier(supplier);
                 if (newId == -1) { return Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, "Not Saved."); }
                 supplier.Id = newId;
@@ -77,6 +78,7 @@ namespace UOW.WebAPI.Controllers
             try
             {
                 int result = await _supplierService.SaveSupplier(supplier);
+                if (result == -1) { return Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, "Not Saved."); }
                 if (result == 0)
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Not Found");

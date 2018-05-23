@@ -98,17 +98,17 @@ namespace UOW.BLL.Concrete
             Product product = _unitOfWork.Products.Get(productId);
             ProductDTO dto = new ProductDTO();
 
-            if (product != null)
+            if (product == null)
             {
-                _unitOfWork.Products.Remove(product);
-                dto.Id = product.Id;
-                dto.IsDiscontinued = product.IsDiscontinued;
-                dto.ProductName = product.ProductName;
-                dto.Package = product.Package;
-                dto.SupplierId = product.SupplierId;
-                dto.UnitPrice = product.UnitPrice;
+                return null;
             }
-
+            _unitOfWork.Products.Remove(product);
+            dto.Id = product.Id;
+            dto.IsDiscontinued = product.IsDiscontinued;
+            dto.ProductName = product.ProductName;
+            dto.Package = product.Package;
+            dto.SupplierId = product.SupplierId;
+            dto.UnitPrice = product.UnitPrice;
             await _unitOfWork.CompleteAsync();
             return dto;
         }

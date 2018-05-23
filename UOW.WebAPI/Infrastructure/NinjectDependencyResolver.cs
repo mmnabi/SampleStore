@@ -31,6 +31,7 @@ namespace UOW.WebAPI.Infrastructure
         {
             _kernel.Bind<IProductService>().To<ProductService>();
             _kernel.Bind<ISupplierService>().To<SupplierService>();
+            _kernel.Bind<ICustomerService>().To<CustomerService>();
         }
     }
 }

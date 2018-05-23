@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UOW.BLL.Abstruct;
 using UOW.BLL.DTOs;
 using UOW.DAL.Concrete;
 using UOW.DAL.Database;
 
 namespace UOW.BLL.Concrete
 {
-    public class CustomerService
+    public class CustomerService : ICustomerService
     {
         private readonly UnitOfWork _unitOfWork;
 
@@ -68,17 +69,17 @@ namespace UOW.BLL.Concrete
             Customer customer = _unitOfWork.Customers.Get(customerId);
             CustomerDTO dto = new CustomerDTO();
 
-            if (customer != null)
+            if (customer == null)
             {
-                _unitOfWork.Customers.Remove(customer);
-                dto.Id = customer.Id;
-                dto.FirstName = customer.FirstName;
-                dto.LastName = customer.LastName;
-                dto.City = customer.City;
-                dto.Country = customer.Country;
-                dto.Phone = customer.Phone;
+                return null;
             }
-
+            _unitOfWork.Customers.Remove(customer);
+            dto.Id = customer.Id;
+            dto.FirstName = customer.FirstName;
+            dto.LastName = customer.LastName;
+            dto.City = customer.City;
+            dto.Country = customer.Country;
+            dto.Phone = customer.Phone;
             await _unitOfWork.CompleteAsync();
             return dto;
         }

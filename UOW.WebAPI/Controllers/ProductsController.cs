@@ -78,7 +78,7 @@ namespace UOW.WebAPI.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
-            if (id != product.Id)
+            if (id != product.Id || id == 0)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad Request");
             }

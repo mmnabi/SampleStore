@@ -75,19 +75,19 @@ namespace UOW.BLL.Concrete
             Supplier supplier = _unitOfWork.Suppliers.Get(supplierId);
             SupplierDTO dto = new SupplierDTO();
 
-            if (supplier != null)
+            if (supplier == null)
             {
-                _unitOfWork.Suppliers.Remove(supplier);
-                dto.Id = supplier.Id;
-                dto.CompanyName = supplier.CompanyName;
-                dto.ContactName = supplier.ContactName;
-                dto.ContactTitle = supplier.ContactTitle;
-                dto.City = supplier.City;
-                dto.Country = supplier.Country;
-                dto.Phone = supplier.Phone;
-                dto.Fax = supplier.Fax;
+                return null;
             }
-
+            _unitOfWork.Suppliers.Remove(supplier);
+            dto.Id = supplier.Id;
+            dto.CompanyName = supplier.CompanyName;
+            dto.ContactName = supplier.ContactName;
+            dto.ContactTitle = supplier.ContactTitle;
+            dto.City = supplier.City;
+            dto.Country = supplier.Country;
+            dto.Phone = supplier.Phone;
+            dto.Fax = supplier.Fax;
             await _unitOfWork.CompleteAsync();
             return dto;
         }

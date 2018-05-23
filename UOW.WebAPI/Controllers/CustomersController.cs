@@ -69,7 +69,7 @@ namespace UOW.WebAPI.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
-            if (id != customer.Id)
+            if (id != customer.Id || id == 0)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Bad Request");
             }

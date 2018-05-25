@@ -41,7 +41,9 @@ namespace UOW.WebAPI.Controllers
         // GET: api/Products/5
         public HttpResponseMessage GetProduct(int id)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, _productService.Products.FirstOrDefault(p => p.Id == id));
+            ProductDTO product = _productService.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null) return Request.CreateResponse(HttpStatusCode.NotFound, "Not Found.");
+            return Request.CreateResponse(HttpStatusCode.OK, product);
         }
 
         [ResponseType(typeof(ProductDTO))]

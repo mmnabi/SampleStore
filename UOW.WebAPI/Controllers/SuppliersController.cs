@@ -32,7 +32,9 @@ namespace UOW.WebAPI.Controllers
         // GET: api/Suppliers/5
         public HttpResponseMessage GetSupplier(int id)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, _supplierService.Suppliers.FirstOrDefault(p => p.Id == id));
+            SupplierDTO supplier = _supplierService.Suppliers.FirstOrDefault(p => p.Id == id);
+            if (supplier == null) return Request.CreateResponse(HttpStatusCode.NotFound, "Not Found.");
+            return Request.CreateResponse(HttpStatusCode.OK, supplier);
         }
 
         [ResponseType(typeof(SupplierDTO))]

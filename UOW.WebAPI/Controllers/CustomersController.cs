@@ -32,7 +32,9 @@ namespace UOW.WebAPI.Controllers
         // GET: api/Customers/5
         public HttpResponseMessage GetCustomer(int id)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, _customerService.Customers.FirstOrDefault(p => p.Id == id));
+            CustomerDTO customer = _customerService.Customers.FirstOrDefault(p => p.Id == id);
+            if (customer == null) return Request.CreateResponse(HttpStatusCode.NotFound, "Not Found.");
+            return Request.CreateResponse(HttpStatusCode.OK, customer);
         }
 
         [ResponseType(typeof(CustomerDTO))]

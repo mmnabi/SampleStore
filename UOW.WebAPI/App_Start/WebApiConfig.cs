@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace UOW.WebAPI
 {
@@ -16,6 +17,9 @@ namespace UOW.WebAPI
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            EnableCorsAttribute cors=new EnableCorsAttribute("http://localhost:4200", "*", "*");
+            config.EnableCors(cors);
         }
     }
 }

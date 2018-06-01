@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using UOW.DAL.Abstruct;
 
@@ -87,6 +89,19 @@ namespace UOW.DAL.Concrete
         public TEntity SingleOrDefault(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
         {
             return Context.Set<TEntity>().SingleOrDefault(predicate);
+        }
+        /// <summary>
+        /// Gets number of rows in a table
+        /// </summary>
+        /// <returns>Number of row</returns>
+        public long Count()
+        {
+            string name = (Context as IObjectContextAdapter).ObjectContext.CreateObjectSet<TEntity>().EntitySet.Name;
+            string tableName = name.Substring(0, name.Length - 1);
+            string query = "EXEC SP_GetRowCount '" + tableName + "'";
+            long rowCount = Context.Database.SqlQuery<long>(query)
+                .FirstOrDefault();
+            return rowCount;
         }
     }
 }

@@ -58,7 +58,7 @@ namespace UOW.BLL.Concrete
                 {
                     CurrentPage = pageIndex,
                     ItemsPerPage = pageSize,
-                    TotalItems = _unitOfWork.Products.GetAll().Count()
+                    TotalItems = _unitOfWork.Products.Count()
                 }
             };
             return model;

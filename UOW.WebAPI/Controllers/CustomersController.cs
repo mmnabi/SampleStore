@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using UOW.BLL.Abstruct;
 using UOW.BLL.DTOs;
+using UOW.BLL.Models.ViewModels;
 
 namespace UOW.WebAPI.Controllers
 {
@@ -26,6 +27,14 @@ namespace UOW.WebAPI.Controllers
         public HttpResponseMessage GetCustomers()
         {
             return Request.CreateResponse(HttpStatusCode.OK, _customerService.Customers.ToList());
+        }
+
+        [ResponseType(typeof(CustomersListViewModel))]
+        [Route("api/Customers/Page{page}")]
+        [HttpGet]
+        public HttpResponseMessage GetCustomersPaginated(int page = 1)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, _customerService.GetCustomers(page, PageSize));
         }
 
         [ResponseType(typeof(CustomerDTO))]

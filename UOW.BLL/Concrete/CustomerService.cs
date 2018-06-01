@@ -3,6 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using UOW.BLL.Abstruct;
 using UOW.BLL.DTOs;
+using UOW.BLL.Models;
+using UOW.BLL.Models.ViewModels;
 using UOW.DAL.Concrete;
 using UOW.DAL.Database;
 
@@ -33,6 +35,31 @@ namespace UOW.BLL.Concrete
                         Phone = customer.Phone
                     }).ToList();
             }
+        }
+
+        public CustomersListViewModel GetCustomers(int pageIndex, int pageSize)
+        {
+            CustomersListViewModel model = new CustomersListViewModel
+            {
+                Customers = _unitOfWork.Customers
+                    .GetCustomers(pageIndex, pageSize)
+                    .Select(customer => new CustomerDTO
+                    {
+                        Id = customer.Id,
+                        FirstName = customer.FirstName,
+                        LastName = customer.LastName,
+                        City = customer.City,
+                        Country = customer.Country,
+                        Phone = customer.Phone
+                    }),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = pageIndex,
+                    ItemsPerPage = pageSize,
+                    TotalItems = _unitOfWork.Customers.Count()
+                }
+            };
+            return model;
         }
 
         public async Task<int> SaveCustomer(CustomerDTO customer)

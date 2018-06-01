@@ -1,4 +1,5 @@
-﻿using UOW.DAL.Database;
+﻿using System.Collections.Generic;
+using UOW.DAL.Database;
 
 namespace UOW.DAL.Abstruct
 {
@@ -8,6 +9,12 @@ namespace UOW.DAL.Abstruct
     /// </summary>
     public interface ICustomerRepository : IRepository<Customer>
     {
-        
+        /// <summary>
+        /// Get customers along with supplier information
+        /// </summary>
+        /// <param name="pageIndex">Index of page current page</param>
+        /// <param name="pageSize">No of customers on a page</param>
+        /// <returns>Collection of Customer</returns>
+        IEnumerable<Customer> GetCustomers(int pageIndex, int pageSize);
     }
 }

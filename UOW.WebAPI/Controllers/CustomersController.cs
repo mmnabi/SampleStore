@@ -30,11 +30,11 @@ namespace UOW.WebAPI.Controllers
         }
 
         [ResponseType(typeof(CustomersListViewModel))]
-        [Route("api/Customers/Page{page}")]
+        [Route("api/Customers/Page{page}/Size{size}")]
         [HttpGet]
-        public HttpResponseMessage GetCustomersPaginated(int page = 1)
+        public HttpResponseMessage GetCustomersPaginated(int page = 1, int size = 5)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, _customerService.GetCustomers(page, PageSize));
+            return Request.CreateResponse(HttpStatusCode.OK, _customerService.GetCustomers(page, size));
         }
 
         [ResponseType(typeof(CustomerDTO))]
